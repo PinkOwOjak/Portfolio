@@ -1,0 +1,272 @@
+/* src/index.css */
+@import "tailwindcss";
+
+/* Global helpers */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  transition: background-color 0.3s ease;
+  /* Performance optimizations */
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Smooth scroll behavior for anchor links */
+  scroll-behavior: smooth;
+}
+
+/* Enable hardware acceleration for smooth animations */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .blob {
+    animation: none !important;
+  }
+}
+
+/* Theme variables - Cyan & Indigo */
+:root{
+  --accent1: #06b6d4; /* cyan primary */
+  --accent2: #4f46e5; /* indigo secondary */
+  --accent3: #0ea5e9; /* sky accent */
+  --glass-bg: rgba(255,255,255,0.6);
+  --glass-bg-dark: rgba(17,24,39,0.55);
+  --card-radius: 1rem;
+}
+
+/* Base body */
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light mode styling */
+.light {
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --card-bg: rgba(255,255,255,0.8);
+  --card-border: rgba(148,163,184,0.4);
+  --skill-border: rgba(148,163,184,0.3);
+  --btn-border: rgba(148,163,184,0.4);
+}
+
+.light body {
+  background-color: #ffffff !important;
+  color: #1e293b;
+}
+
+html.light {
+  background-color: #ffffff !important;
+}
+
+/* Dark mode styling */
+.dark {
+  --text-primary: #f8fafc;
+  --text-secondary: #e2e8f0;
+  --text-muted: #cbd5e1;
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --card-bg: rgba(30,41,59,0.8);
+  --card-border: rgba(148,163,184,0.1);
+  --skill-border: rgba(148,163,184,0.2);
+  --btn-border: rgba(148,163,184,0.15);
+}
+
+.dark body {
+  background-color: #0f172a !important;
+  color: #f8fafc;
+}
+
+html.dark {
+  background-color: #0f172a !important;
+}
+
+/* subtle text */
+.text-muted { 
+  color: var(--text-muted) !important; 
+}
+
+/* Glass card style (light + dark aware) */
+.card {
+  border-radius: var(--card-radius);
+  padding: 1rem;
+  background: var(--card-bg);
+  backdrop-filter: blur(6px) saturate(120%);
+  box-shadow: 0 6px 30px rgba(2,6,23,0.6);
+  border: 1px solid var(--card-border);
+  color: var(--text-primary);
+  position: relative;
+  z-index: 10; /* Above blobs */
+}
+
+/* Accent gradient button */
+.btn-accent {
+  background-image: linear-gradient(90deg, var(--accent1), var(--accent2));
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 20px rgba(99,102,241,0.18);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.btn-accent:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 14px 36px rgba(99,102,241,0.22); }
+.btn-outline {
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--btn-border);
+  background: transparent;
+  transition: background .15s ease, transform .15s ease, border-color .15s ease;
+  color: var(--text-primary);
+}
+.btn-outline:hover { 
+  background: var(--card-bg); 
+  transform: translateY(-3px); 
+  border-color: var(--card-border);
+}
+
+/* Project card micro-interaction */
+.card-hover {
+  transition: transform .22s cubic-bezier(.2,.9,.2,1), box-shadow .22s ease;
+}
+.card-hover:hover { transform: translateY(-8px) rotate(-0.2deg); box-shadow: 0 20px 40px rgba(2,6,23,0.6); }
+
+/* Helpful tiny utilities */
+.kicker { font-size: .75rem; text-transform: uppercase; letter-spacing: .12em; opacity:.8; }
+
+/* Skill badge styling */
+.skill-badge {
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--skill-border);
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  background: var(--card-bg);
+  backdrop-filter: blur(4px);
+  color: var(--text-primary);
+  transition: all 0.15s ease;
+}
+
+.skill-badge:hover {
+  background: var(--card-border);
+  border-color: var(--text-muted);
+  transform: scale(1.05);
+}
+
+/* Nav link with cyan sketch effect */
+.nav-link {
+  position: relative;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--btn-border);
+  border-radius: 0.65rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: rgba(6,182,212,0.05); /* faint cyan base */
+  transition: color .25s ease, border-color .25s ease;
+}
+
+.nav-link:before, .nav-link:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Sketchy layered cyan halo */
+.nav-link:before {
+  background:
+    repeating-linear-gradient(125deg, rgba(6,182,212,0.18) 0 6px, transparent 6px 12px),
+    radial-gradient(circle at 30% 40%, rgba(6,182,212,0.25), transparent 70%);
+  mix-blend-mode: overlay;
+  opacity: 0.55;
+  filter: blur(6px) saturate(120%);
+  transform: scale(1.2) rotate(2deg);
+  transition: opacity .35s ease, filter .4s ease, transform .4s ease;
+}
+
+.nav-link:after {
+  background: linear-gradient(135deg, rgba(79,70,229,0.35), rgba(6,182,212,0.05));
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+
+.nav-link:hover:before {
+  opacity: 0.95;
+  filter: blur(10px) saturate(180%);
+  transform: scale(1.35) rotate(-3deg);
+}
+
+.nav-link:hover:after {
+  opacity: 0.2;
+}
+
+.nav-link:hover {
+  border-color: rgba(6,182,212,0.55);
+}
+
+.nav-link:active {
+  transform: translateY(1px);
+}
+
+/* ===== Floating Particles Background ===== */
+
+.particle-background {
+  background: transparent;
+}
+
+/* Responsive design for particles */
+@media (max-width: 768px) {
+  .particle-background {
+    opacity: 0.7; /* Reduce intensity on mobile for better performance */
+  }
+}
+
+/* Scroll offset for anchor links to account for fixed header */
+section[id] {
+  scroll-margin-top: 100px;
+}
+
+/* Fade-in animation keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

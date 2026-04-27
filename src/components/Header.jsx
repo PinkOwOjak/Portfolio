@@ -7,7 +7,7 @@ return (
 <header className="relative z-10 max-w-6xl mx-auto p-4 flex items-center justify-between">
 <div className="flex items-center gap-3">
 <div className="w-12 h-12 rounded-full overflow-hidden shadow-md">
-<img src="/src/assets/profile_1.jpg" alt="profile" className="w-full h-full object-cover" />
+<img src="/images/profile_1.jpg" alt="profile" className="w-full h-full object-cover" />
 </div>
 <div>
 <div className="font-bold">{PERSONAL.name}</div>

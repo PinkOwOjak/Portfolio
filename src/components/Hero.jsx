@@ -96,7 +96,7 @@ export default function Hero(){
         className="mx-auto w-64 h-64 md:w-80 md:h-80 rounded-2xl shadow-2xl overflow-hidden border"
         whileHover={{ scale: 1.05 }}
       >
-        <img src="/src/assets/profile_1.jpg" alt="profile big" className="w-full h-full object-cover" />
+        <img src="/images/profile_1.jpg" alt="profile big" className="w-full h-full object-cover" />
       </motion.div>
     </section>
   )
